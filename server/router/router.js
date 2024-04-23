@@ -1,0 +1,23 @@
+import {Router} from "express";
+import authRouter from "./nested/auth.js";
+import schoolBoyRouter from "./nested/schoolBoy.js";
+import genderRouter from "./nested/gender.js";
+import parentRouter from "./nested/parent.js";
+import schoolRouter from "./nested/school.js";
+import classRouter from "./nested/class.js";
+import teacherRouter from "./nested/teacher.js";
+import instaRouter from "./nested/insta.js";
+
+const router = Router()
+
+router.use('/auth', authRouter)
+router.use('/schoolBoy', schoolBoyRouter)
+router.use('/parent', parentRouter)
+router.use('/gender', genderRouter)
+router.use('/school', schoolRouter)
+router.use('/class', classRouter)
+router.use('/teacher', teacherRouter)
+
+router.use('/instagram', instaRouter)
+
+export default router
