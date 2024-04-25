@@ -4,6 +4,7 @@ import LoginView from "@/views/LoginView.vue";
 import RegisterView from "@/views/RegisterView.vue";
 import SchoolBoyView from "@/views/SchoolBoyView.vue";
 import SchoolBoyListView from "@/views/SchoolBoyListView.vue";
+import AddSchoolBoyView from "@/views/AddSchoolBoyView.vue";
 
 export class RouterNames {
     static Home = 'Home'
@@ -11,6 +12,7 @@ export class RouterNames {
     static Register = 'Register'
     static SchoolBoyList = 'SchoolBoyList'
     static SchoolBoy = 'SchoolBoy'
+    static AddSchoolBoy = 'AddSchoolBoy'
 }
 
 const router = createRouter({
@@ -30,6 +32,11 @@ const router = createRouter({
                     path: '/schoolBoy/:id',
                     name: RouterNames.SchoolBoy,
                     component: SchoolBoyView
+                },
+                {
+                    path: '/addSchoolBoy',
+                    name: RouterNames.AddSchoolBoy,
+                    component: AddSchoolBoyView
                 }
             ]
         },

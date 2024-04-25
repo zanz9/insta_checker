@@ -43,10 +43,13 @@ async function clickSchoolBoy(id) {
 </script>
 
 <template>
-  <div class="flex justify-between">
+  <div class="sm:flex justify-between">
     <span class="text-3xl font-bold">Список учеников </span>
 
-    <Button @click="logout">Logout</Button>
+    <div>
+      <Button class="mr-2" @click="router.push({name: RouterNames.AddSchoolBoy})" variant="outline">Добавить ученика</Button>
+      <Button @click="logout">Выйти</Button>
+    </div>
   </div>
 
   <div v-for="item in schoolBoys.data">
