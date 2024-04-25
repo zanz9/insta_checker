@@ -1,12 +1,16 @@
-import {createMemoryHistory, createRouter} from 'vue-router'
+import {createMemoryHistory, createRouter, createWebHistory} from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LoginView from "@/views/LoginView.vue";
 import RegisterView from "@/views/RegisterView.vue";
+import SchoolBoyView from "@/views/SchoolBoyView.vue";
+import SchoolBoyListView from "@/views/SchoolBoyListView.vue";
 
-export class RouterNames  {
+export class RouterNames {
     static Home = 'Home'
     static Login = 'Login'
     static Register = 'Register'
+    static SchoolBoyList = 'SchoolBoyList'
+    static SchoolBoy = 'SchoolBoy'
 }
 
 const router = createRouter({
@@ -15,7 +19,19 @@ const router = createRouter({
         {
             path: '/',
             name: RouterNames.Home,
-            component: HomeView
+            component: HomeView,
+            children: [
+                {
+                    path: '',
+                    name: RouterNames.SchoolBoyList,
+                    component: SchoolBoyListView
+                },
+                {
+                    path: '/schoolBoy/:id',
+                    name: RouterNames.SchoolBoy,
+                    component: SchoolBoyView
+                }
+            ]
         },
         {
             path: '/login',

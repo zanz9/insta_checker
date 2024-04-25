@@ -7,21 +7,45 @@ import ParentService from "../parent/ParentService.js";
 class SchoolBoyService {
     db = new PrismaClient()
 
-    async getAll() {
-        return this.db.schoolBoy.findMany({
+    async getAll(offset, limit) {
+        const total = await this.db.schoolBoy.count()
+        const schoolBoys = await this.db.schoolBoy.findMany({
             include: {
-                family: true,
-                info: true,
+                info: {
+                    include: {
+                        school: true,
+                        classes: true,
+                        teacher: true
+                    }
+                },
                 gender: true,
-            }
+            },
+            take: limit,
+            skip: offset
         });
+
+        return {total, schoolBoys}
     }
 
     async getById(id) {
         return this.db.schoolBoy.findUnique({
             where: {id: +id}, include: {
-                family: true,
-                info: true,
+                family: {
+                    include: {
+                        parent: {
+                            include: {
+                                gender: true
+                            }
+                        }
+                    }
+                },
+                info: {
+                    include: {
+                        school: true,
+                        classes: true,
+                        teacher: true
+                    }
+                },
                 gender: true,
             }
         })

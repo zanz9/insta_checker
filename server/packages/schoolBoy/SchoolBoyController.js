@@ -9,7 +9,9 @@ import SchoolBoyM from "../../models/SchoolBoyM.js";
 class SchoolBoyController {
     async getAll(req, res, next) {
         try {
-            const schoolBoys = await SchoolBoyService.getAll()
+            const {limit, page} = req.query
+            const offset = (page - 1) * limit
+            const schoolBoys = await SchoolBoyService.getAll(+offset, +limit)
             return res.json(schoolBoys)
         } catch (e) {
             next(e)

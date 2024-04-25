@@ -3,8 +3,7 @@ import InstaController from "../../packages/insta/InstaController.js";
 
 const instaRouter = Router()
 
-instaRouter.get('/:username', InstaController.getImagesByUsername)
-
+instaRouter.get('/:username', InstaController.getTotalImageCount)
 
 export default instaRouter
 
