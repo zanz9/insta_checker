@@ -11,8 +11,8 @@ import {
 } from '@/components/ui/select';
 import {ChevronLeft} from 'lucide-vue-next'
 import {Input} from '@/components/ui/input'
-import {reactive, ref} from "vue";
-import {mdiPlusCircle} from "@mdi/js";
+import {onMounted, reactive, ref, watch} from "vue";
+import {mdiDelete, mdiPlusCircle} from "@mdi/js";
 import SvgIcon from '@jamescoyle/vue-icon';
 import {Calendar} from '@/components/ui/v-calendar'
 import {
@@ -24,6 +24,8 @@ import {cn} from "@/lib/utils.js";
 import {Calendar as CalendarIcon} from 'lucide-vue-next'
 import {useRouter} from "vue-router";
 import {RouterNames} from "@/router/index.js";
+import api from "@/api/api.js";
+import {SelectGroup} from "@/components/ui/select/index.js";
 
 const form = reactive({
   firstName: '',
@@ -34,6 +36,20 @@ const form = reactive({
 })
 
 const date = ref()
+const genderId = ref()
+
+const parentValues = ref([])
+
+const gender = ref([])
+const parents = ref([])
+
+onMounted(async () => {
+  const {data: genderData} = await api.get('/gender')
+  gender.value = genderData
+
+  const {data: parentData} = await api.get('/parent')
+  parents.value = parentData
+})
 
 const router = useRouter()
 
@@ -128,10 +144,29 @@ function back() {
                 <CardHeader>
                   <CardTitle>Родители</CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent v-for="(v, i) in parentValues">
+                 <div class="flex items-center">
+                   <Select v-model="parentValues[i]" class="inline-block">
+                     <SelectTrigger>
+                       <SelectValue placeholder="Выберите"/>
+                     </SelectTrigger>
+                     <SelectContent>
+                       <SelectGroup v-for="parent in parents">
+                         <SelectItem :value="parent.id.toString()">
+                           {{ parent.lastName }} {{ parent.firstName }}
+                         </SelectItem>
+                       </SelectGroup>
+                     </SelectContent>
+                   </Select>
+                   <SvgIcon :path="mdiDelete" type="mdi" class="ml-2 cursor-pointer"
+                    @click="()=>{parentValues.splice(i, 1)}"
+                   />
+                 </div>
+
                 </CardContent>
                 <CardFooter class="justify-center border-t p-4">
-                  <SvgIcon type="mdi" :path="mdiPlusCircle" class="cursor-pointer"></SvgIcon>
+                  <SvgIcon type="mdi" :path="mdiPlusCircle" class="cursor-pointer"
+                           @click="parentValues.push(null)"></SvgIcon>
                 </CardFooter>
               </Card>
               <Card>
@@ -165,17 +200,16 @@ function back() {
                   <CardTitle>Пол</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <Select>
-                    <SelectTrigger id="status" aria-label="Select status">
+                  <Select v-model="genderId">
+                    <SelectTrigger id="gender" aria-label="Select gender">
                       <SelectValue placeholder="Выберите пол"/>
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="draft">
-                        Мужской
-                      </SelectItem>
-                      <SelectItem value="published">
-                        Женский
-                      </SelectItem>
+                      <SelectGroup v-for="g in gender">
+                        <SelectItem :value="g.id.toString()">
+                          {{ g.name }}
+                        </SelectItem>
+                      </SelectGroup>
                     </SelectContent>
                   </Select>
                 </CardContent>
