@@ -1,5 +1,4 @@
 <script setup>
-
 import {Button} from '@/components/ui/button'
 import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/components/ui/card/index.js";
 import {Label} from '@/components/ui/label'
@@ -12,9 +11,19 @@ import {
 } from '@/components/ui/select';
 import {ChevronLeft} from 'lucide-vue-next'
 import {Input} from '@/components/ui/input'
-import {reactive} from "vue";
+import {reactive, ref} from "vue";
 import {mdiPlusCircle} from "@mdi/js";
 import SvgIcon from '@jamescoyle/vue-icon';
+import {Calendar} from '@/components/ui/v-calendar'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover'
+import {cn} from "@/lib/utils.js";
+import {Calendar as CalendarIcon} from 'lucide-vue-next'
+import {useRouter} from "vue-router";
+import {RouterNames} from "@/router/index.js";
 
 const form = reactive({
   firstName: '',
@@ -24,6 +33,13 @@ const form = reactive({
   instagram: '',
 })
 
+const date = ref()
+
+const router = useRouter()
+
+function back() {
+  router.push({name: RouterNames.SchoolBoyList})
+}
 </script>
 
 <!--firstName, lastName, email, phone, instagram-->
@@ -37,7 +53,7 @@ const form = reactive({
       <main class="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
         <div class="mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4">
           <div class="flex items-center gap-4">
-            <Button variant="outline" size="icon">
+            <Button variant="outline" size="icon" @click="back">
               <ChevronLeft class="w-4 h-4"/>
             </Button>
             <h1 class="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0">
@@ -123,6 +139,23 @@ const form = reactive({
                   <CardTitle>Дата рождения</CardTitle>
                 </CardHeader>
                 <CardContent>
+                  <Popover>
+                    <PopoverTrigger as-child>
+                      <Button
+                          :variant="'outline'"
+                          :class="cn(
+          'w-[280px] justify-start text-left font-normal',
+          !date && 'text-muted-foreground',
+        )"
+                      >
+                        <CalendarIcon class="mr-2 h-4 w-4"/>
+                        <span>{{ date }}</span>
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent class="w-auto p-0">
+                      <Calendar v-model="date"/>
+                    </PopoverContent>
+                  </Popover>
                 </CardContent>
               </Card>
             </div>
