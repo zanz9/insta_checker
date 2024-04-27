@@ -13,7 +13,7 @@ parentRouter.post("/", [
     body("birthday").isISO8601(),
     body("job").isString(),
     body("jobPlace").isString(),
-    body("genderId").isInt(),
+    body("genderId"),
 ], ParentController.create)
 parentRouter.put("/", ParentController.update)
 parentRouter.delete("/:id", ParentController.delete)

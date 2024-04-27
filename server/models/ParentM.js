@@ -16,6 +16,6 @@ export default class ParentM {
         this.birthday = body.birthday
         this.job = body.job
         this.jobPlace = body.jobPlace
-        this.genderId = body.genderId
+        this.genderId = +body.genderId
     }
 }

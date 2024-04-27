@@ -11,6 +11,7 @@ import {useToast} from "@/components/ui/toast/index.js";
 import {useRouter} from "vue-router";
 
 const loading = ref(false)
+const onSubmit = ref(false)
 
 const name = ref('')
 
@@ -32,6 +33,7 @@ async function create() {
       title: 'Что-то пошло не так...',
     })
   }
+  onSubmit.value = false
 }
 
 async function back() {
@@ -61,7 +63,7 @@ async function back() {
     </CardContent>
     <CardFooter class="flex justify-end">
       <Button variant="outline" @click="back">Отмена</Button>
-      <Button class="ml-2" @click="create">Сохранить</Button>
+      <Button class="ml-2" @click="create" :disabled="onSubmit">Сохранить</Button>
     </CardFooter>
   </Card>
 </template>
