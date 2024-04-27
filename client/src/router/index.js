@@ -5,6 +5,11 @@ import RegisterView from "@/views/RegisterView.vue";
 import SchoolBoyView from "@/views/SchoolBoyView.vue";
 import SchoolBoyListView from "@/views/SchoolBoyListView.vue";
 import AddSchoolBoyView from "@/views/AddSchoolBoyView.vue";
+import AddClassView from "@/views/AddClassView.vue";
+import AddGenderView from "@/views/AddGenderView.vue";
+import AddParentView from "@/views/AddParentView.vue";
+import AddSchoolView from "@/views/AddSchoolView.vue";
+import AddTeacherView from "@/views/AddTeacherView.vue";
 
 export class RouterNames {
     static Home = 'Home'
@@ -13,6 +18,11 @@ export class RouterNames {
     static SchoolBoyList = 'SchoolBoyList'
     static SchoolBoy = 'SchoolBoy'
     static AddSchoolBoy = 'AddSchoolBoy'
+    static AddClass = 'AddClass'
+    static AddGender = 'AddGender'
+    static AddParent = 'AddParent'
+    static AddSchool = 'AddSchool'
+    static AddTeacher = 'AddTeacher'
 }
 
 const router = createRouter({
@@ -37,6 +47,31 @@ const router = createRouter({
                     path: '/addSchoolBoy',
                     name: RouterNames.AddSchoolBoy,
                     component: AddSchoolBoyView
+                },
+                {
+                    path: '/addClass',
+                    name: RouterNames.AddClass,
+                    component: AddClassView
+                },
+                {
+                    path: '/addGender',
+                    name: RouterNames.AddGender,
+                    component: AddGenderView
+                },
+                {
+                    path: '/addParent',
+                    name: RouterNames.AddParent,
+                    component: AddParentView
+                },
+                {
+                    path: '/addSchool',
+                    name: RouterNames.AddSchool,
+                    component: AddSchoolView
+                },
+                {
+                    path: '/addTeacher',
+                    name: RouterNames.AddTeacher,
+                    component: AddTeacherView
                 }
             ]
         },

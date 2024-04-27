@@ -197,7 +197,7 @@ async function create() {
                           v-model="form.instagram"
                           type="text"
                           class="w-full"
-                          placeholder="@vasyapetkin"
+                          placeholder="vasyapetkin"
                           required
                       />
                     </div>

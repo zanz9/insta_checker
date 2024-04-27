@@ -15,7 +15,16 @@ import {
   PaginationPrev,
 } from '@/components/ui/pagination'
 import Loader from "@/components/custom/Loader.vue";
-
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import SvgIcon from '@jamescoyle/vue-icon';
+import { mdiArrowDownDropCircleOutline } from '@mdi/js';
 const loading = ref(true)
 
 async function logout() {
@@ -69,10 +78,27 @@ async function fetchSchoolBoys() {
     <div class="sm:flex justify-between">
       <span class="text-3xl font-bold">Список учеников </span>
 
-      <div>
-        <Button class="mr-2" @click="router.push({name: RouterNames.AddSchoolBoy})" variant="outline">Добавить ученика
-        </Button>
-        <Button @click="logout">Выйти</Button>
+      <div class="flex">
+       <div class="flex">
+         <Button @click="router.push({name: RouterNames.AddSchoolBoy})" variant="outline" class="rounded-none" >
+           Добавить ученика
+         </Button>
+         <DropdownMenu>
+           <DropdownMenuTrigger>
+             <Button size="icon" variant="outline"  class="rounded-none">
+               <SvgIcon type="mdi" :path="mdiArrowDownDropCircleOutline"></SvgIcon>
+             </Button>
+           </DropdownMenuTrigger>
+           <DropdownMenuContent>
+             <DropdownMenuItem @click="router.push({name: RouterNames.AddSchool})">Школа</DropdownMenuItem>
+             <DropdownMenuItem @click="router.push({name: RouterNames.AddClass})">Класс</DropdownMenuItem>
+             <DropdownMenuItem @click="router.push({name: RouterNames.AddTeacher})">Учитель</DropdownMenuItem>
+             <DropdownMenuItem @click="router.push({name: RouterNames.AddGender})">Пол</DropdownMenuItem>
+             <DropdownMenuItem @click="router.push({name: RouterNames.AddParent})">Родитель</DropdownMenuItem>
+           </DropdownMenuContent>
+         </DropdownMenu>
+       </div>
+        <Button class="ml-2" @click="logout">Выйти</Button>
       </div>
     </div>
 

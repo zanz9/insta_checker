@@ -30,7 +30,7 @@ model SchoolBoy {
 
 model Gender {
   id         Int         @id @default(autoincrement())
-  name       String
+  name       String      @unique
   schoolBoys SchoolBoy[]
   parent     Parent[]
 }
