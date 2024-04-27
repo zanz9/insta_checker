@@ -27,6 +27,7 @@ import {RouterNames} from "@/router/index.js";
 import api from "@/api/api.js";
 import {SelectGroup} from "@/components/ui/select/index.js";
 import {useToast} from '@/components/ui/toast/use-toast'
+import Loader from "@/components/custom/Loader.vue";
 
 const {toast} = useToast()
 
@@ -120,15 +121,8 @@ async function create() {
 }
 </script>
 
-<!--firstName, lastName, email, phone, instagram-->
-<!--birthday-->
-<!--gender, school, class, teacher, parent-->
-
-<!--TODO: school, class, teacher-->
 <template>
-  <div v-if="loading" class="flex justify-center items-center h-screen">
-    <div class="rounded-full h-20 w-20 bg-gray-500 animate-ping"></div>
-  </div>
+  <Loader v-if="loading"/>
   <div v-else class="flex min-h-screen w-full flex-col bg-muted/40">
     <div class="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
       <main class="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
@@ -223,7 +217,7 @@ async function create() {
                       <SelectContent>
                         <SelectGroup v-for="parent in parents">
                           <SelectItem :value="parent.id.toString()">
-                            {{ parent.lastName }} {{ parent.firstName }}
+                            {{ parent.lastName }} {{ parent.firstName }} | {{parent.gender.name}}
                           </SelectItem>
                         </SelectGroup>
                       </SelectContent>

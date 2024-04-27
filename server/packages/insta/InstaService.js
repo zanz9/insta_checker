@@ -6,19 +6,17 @@ import axios from "axios";
 import * as path from "path";
 
 class InstaService {
-    download_image(url, image_path) {
-        axios({
+    async download_image(url, image_path) {
+        const response = await axios({
             url,
             responseType: 'stream',
-        }).then(
-            response =>
-                new Promise((resolve, reject) => {
-                    response.data
-                        .pipe(fs.createWriteStream(image_path))
-                        .on('finish', () => resolve())
-                        .on('error', e => reject(e));
-                }),
-        );
+        })
+        await new Promise((resolve, reject) => {
+            response.data
+                .pipe(fs.createWriteStream(image_path))
+                .on('finish', () => resolve())
+                .on('error', e => reject(e));
+        })
     }
 
     async getImagesByUsername(username) {
@@ -48,7 +46,7 @@ class InstaService {
                 postsUrl.push(src)
             }
         } finally {
-            driver.close()
+            await driver.close()
         }
 
         if (!fs.existsSync(path.join(__dirname + `/images/${username}`))) {
@@ -57,7 +55,7 @@ class InstaService {
         for (let i = 0; i < postsUrl.length; i++) {
             const postUrl = postsUrl[i]
             const image_path = path.join(__dirname + `/images/${username}/` + i + '.jpg')
-            this.download_image(postUrl, image_path)
+            await this.download_image(postUrl, image_path)
         }
         return postsUrl
     }

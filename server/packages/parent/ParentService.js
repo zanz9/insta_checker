@@ -6,7 +6,11 @@ class ParentService {
     db = new PrismaClient()
 
     async getAll() {
-        return this.db.parent.findMany();
+        return this.db.parent.findMany({
+            include: {
+                gender: true
+            }
+        });
     }
 
     async getById(id) {

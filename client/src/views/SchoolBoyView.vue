@@ -13,6 +13,7 @@ import {
 import {Card, CardContent} from "@/components/ui/card/index.js";
 import SvgIcon from '@jamescoyle/vue-icon';
 import {mdiEmailOutline, mdiFaceMan, mdiFaceWoman, mdiHumanMaleBoard, mdiInstagram, mdiPhone, mdiSchool} from '@mdi/js';
+import Loader from "@/components/custom/Loader.vue";
 
 const route = useRoute()
 
@@ -194,7 +195,8 @@ onMounted(async () => {
     </div>
 
     <div class="my-2">
-      <Carousel>
+      <Loader v-if="loadingPosts"/>
+      <Carousel v-else>
         <CarouselContent>
           <CarouselItem v-for="(_, index) in schoolBoy.posts" :key="index"
                         class="sm:basis-1/2 md:basis-1/2 lg:basis-1/3">

@@ -21,7 +21,8 @@ class SchoolBoyService {
                 gender: true,
             },
             take: limit,
-            skip: offset
+            skip: offset,
+            orderBy: {id: 'desc'},
         });
 
         return {total, schoolBoys}
