@@ -4,7 +4,7 @@ import LoginView from "@/views/LoginView.vue";
 import RegisterView from "@/views/RegisterView.vue";
 import SchoolBoyView from "@/views/SchoolBoyView.vue";
 import SchoolBoyListView from "@/views/SchoolBoyListView.vue";
-import AddSchoolBoyView from "@/views/AddSchoolBoy/AddSchoolBoyView.vue";
+import AddSchoolBoyView from "@/views/AddSchoolBoyView.vue";
 
 export class RouterNames {
     static Home = 'Home'

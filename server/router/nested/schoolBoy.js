@@ -14,10 +14,10 @@ const rules = [
     body('email').isEmail(),
     body('phone').isString(),
     body('instagram').isString(),
-    body('genderId').isInt(),
-    body('schoolId').isInt(),
-    body('classId').isInt(),
-    body('teacherId').isInt(),
+    body('genderId'),
+    body('schoolId'),
+    body('classId'),
+    body('teacherId'),
     body('parentId').isArray(),
 ]
 
