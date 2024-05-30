@@ -35,6 +35,7 @@ const router = createRouter({
             children: [
                 {
                     path: '',
+                    initialRoute: true,
                     name: RouterNames.SchoolBoyList,
                     component: SchoolBoyListView
                 },

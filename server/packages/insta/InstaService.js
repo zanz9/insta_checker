@@ -29,13 +29,14 @@ class InstaService {
             .build()
         try {
             await driver.get(`https://www.instagram.com/accounts/login/?next=%2F${username}%2F&source=desktop_nav`)
-            await driver.wait(until.elementLocated(By.xpath('//input[@name = \'username\']')), 5 * 1000)
+            await driver.wait(until.elementLocated(By.xpath('//input[@name = \'username\']')), 10 * 1000)
             await driver.findElement(By.xpath('//input[@name = \'username\']')).sendKeys('moskvatriodin')
             await driver.findElement(By.xpath('//input[@name = \'password\']')).sendKeys('Rock26052', Key.RETURN)
-            await driver.sleep(5000)
+            await driver.sleep(10000);
+            console.log("Found Instagram User: ", username);
             await driver.get(`https://www.instagram.com/${username}`)
             await driver.wait(until.elementLocated(By.className('_aagv')), 5 * 1000)
-            await driver.sleep(5000)
+            await driver.sleep(10000)
             const temp = await driver.findElements(By.className('_aagv'))
             let idx = 1
             for (const tempElement of temp) {
@@ -44,6 +45,7 @@ class InstaService {
                 }
                 const src = await tempElement.findElement(By.tagName('img')).getAttribute('src')
                 postsUrl.push(src)
+                console.log("Source Image: ", src)
             }
         } finally {
             await driver.close()

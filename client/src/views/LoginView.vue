@@ -25,7 +25,7 @@ async function login() {
     message.text = data.message
     message.type = 'success'
     message.show = true
-    await router.push({name: RouterNames.Home})
+    await router.push({name: RouterNames.SchoolBoyList})
   } catch (e) {
     message.text = e.response.data.message
     message.type = 'error'
